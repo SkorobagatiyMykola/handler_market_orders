@@ -35,8 +35,9 @@ public class Main {
                     handler.handlerLine(strArray, out);
                 } catch (Exception ex) {
                     countErr++;
-                    if (countErr == 1)
+                    if (countErr == 1) {
                         errorFile = new PrintWriter(fileError);
+                    }
                     String errorMassage = String.format(formatErrorMassage, lineInsex, ex.getMessage());
                     errorFile.println(errorMassage);
                     System.err.println(errorMassage);

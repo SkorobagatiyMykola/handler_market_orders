@@ -3,6 +3,7 @@ package ua.skorobahatyi.utils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import ua.skorobahatyi.model.Order;
 import ua.skorobahatyi.model.OrderBook;
 
 import java.io.*;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 
 public class CreationHttpPage {
     private static final String fileReport = "orderBook.html";
@@ -24,7 +26,9 @@ public class CreationHttpPage {
 
         input.put("date", LocalDate.now());
         input.put("time", time.format(format));
-        input.put("orders", orderBook.getOrderBook());
+        SortedMap<Integer, Order> allBook = orderBook.getBidOrderBook();
+        allBook.putAll(orderBook.getAskOrderBook());
+        input.put("orders", allBook);
         input.put("bestAskPrice", orderBook.getBestAskPrice());
         input.put("bestBidPrice", orderBook.getBestBidPrice());
 
